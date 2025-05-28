@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:prod": "ng build --configuration production --base-href=/pizzeria-ui/",
+    "build:prod": "ng build --configuration production --base-href=/pizzeria-nu/",
     "deploy": "npx angular-cli-ghpages --dir=dist/pizzeria-ui/browser"
   },
   "private": true,
