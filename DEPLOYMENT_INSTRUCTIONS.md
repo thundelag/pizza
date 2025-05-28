@@ -50,10 +50,8 @@ npm run deploy
 
 Your application will be available at:
 ```
-https://YOUR-USERNAME.github.io/pizzeria-ui/
+https://thundelag.github.io/pizza/
 ```
-
-Replace `YOUR-USERNAME` with your actual GitHub username.
 
 ## 6. Future Updates
 
