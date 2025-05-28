@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:prod": "ng build --configuration production --base-href=/pizzeria-nu/",
+    "build:prod": "ng build --configuration production --base-href=/pizza/",
     "deploy": "npx angular-cli-ghpages --dir=dist/pizzeria-ui/browser"
   },
   "private": true,
@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
     "@popperjs/core": "^2.11.8",
+    "@supabase/supabase-js": "^2.49.8",
     "bootstrap": "^5.3.6",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
