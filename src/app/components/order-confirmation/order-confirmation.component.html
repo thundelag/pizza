@@ -1,0 +1,87 @@
+<div class="confirmation-container">
+  <div *ngIf="isLoading" class="loading">
+    <mat-icon class="loading-icon">hourglass_empty</mat-icon>
+    <p>Loading order details...</p>
+  </div>
+  
+  <div *ngIf="error" class="error">
+    <mat-icon>error_outline</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-raised-button color="primary" routerLink="/">Return to Home</button>
+  </div>
+  
+  <div *ngIf="!isLoading && !error && order" class="order-details">
+    <div class="success-header">
+      <mat-icon class="success-icon">check_circle</mat-icon>
+      <h1>Order Confirmed!</h1>
+    </div>
+    
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Order #{{ order.orderNumber }}</mat-card-title>
+        <mat-card-subtitle>{{ order.orderDate | date:'medium' }}</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="summary-section">
+          <h2>Order Status</h2>
+          <p class="status-badge" [ngClass]="order.status.toLowerCase()">{{ order.status }}</p>
+          <p>Thank you for your order! We'll start preparing it right away.</p>
+        </div>
+        
+        <mat-divider></mat-divider>
+        
+        <div class="summary-section">
+          <h2>Customer Information</h2>
+          <p><strong>Name:</strong> {{ order.customerName }}</p>
+          <p><strong>Email:</strong> {{ order.customerEmail }}</p>
+          <p><strong>Phone:</strong> {{ order.customerPhone }}</p>
+        </div>
+        
+        <mat-divider></mat-divider>
+        
+        <div class="summary-section">
+          <h2>Delivery Address</h2>
+          <p>{{ order.deliveryAddress }}</p>
+        </div>
+        
+        <mat-divider></mat-divider>
+        
+        <div class="summary-section">
+          <h2>Order Summary</h2>
+          <table class="order-items">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of order.items">
+                <td>{{ item.pizzaName }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price | currency }}</td>
+                <td>{{ item.quantity * item.price | currency }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" class="total-label">Total</td>
+                <td class="total-value">{{ order.totalAmount | currency }}</td>
+              </tr>
+            </tfoot>
+          </table>
+          
+          <p class="payment-info"><strong>Payment Method:</strong> Cash on Delivery</p>
+        </div>
+      </mat-card-content>
+      
+      <mat-card-actions>
+        <button mat-stroked-button routerLink="/menu">Continue Shopping</button>
+        <button mat-raised-button color="primary" routerLink="/">Return to Home</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

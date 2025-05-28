@@ -1,0 +1,80 @@
+<section class="hero py-5 text-center">
+  <div class="container">
+    <h1 class="display-4 pizza-primary">Benvenuto a Pizzeria Deliziosa!</h1>
+    <p class="lead mb-4">Authentic Italian Pizzas Made with Love</p>
+    <div class="buttons">
+      <a routerLink="/menu" mat-raised-button color="primary" class="me-3">View Our Menu</a>
+      <a routerLink="/contact" mat-stroked-button color="primary">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<div class="container mt-5">
+  <section class="featured-pizzas mb-5">
+    <h2 class="text-center mb-4">Our Featured Pizzas</h2>
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let pizza of featuredPizzas">
+        <mat-card class="h-100">
+          <img mat-card-image src="https://via.placeholder.com/300x200?text=Pizza" alt="{{pizza.name}}">
+          <mat-card-content>
+            <h3>{{pizza.name}}</h3>
+            <p>{{pizza.description}}</p>
+            <p class="price">€{{pizza.price.toFixed(2)}}</p>
+          </mat-card-content>          <mat-card-actions>
+            <button mat-button color="primary" (click)="addToCart(pizza)">
+              <mat-icon>add_shopping_cart</mat-icon> Add to Cart
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <a routerLink="/menu" mat-raised-button color="primary">See Full Menu</a>
+    </div>
+  </section>
+
+  <section class="about-us mb-5">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h2>About Us</h2>
+        <p class="lead">Authentic Italian Tradition Since 1985</p>
+        <p>At Pizzeria Deliziosa, we take pride in our authentic Italian recipes passed down through generations. Our pizzas are made using only the freshest ingredients, hand-tossed dough, and baked in traditional wood-fired ovens.</p>
+        <a routerLink="/about" mat-stroked-button color="primary">Learn More</a>
+      </div>
+      <div class="col-md-6">
+        <img src="https://via.placeholder.com/600x400?text=Our+Story" alt="Our Story" class="img-fluid rounded">
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials mb-5 text-center">
+    <h2 class="mb-4">What Our Customers Say</h2>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="testimonial p-4 bg-light rounded">
+          <p class="mb-3">"Best pizza I've ever had outside of Italy! Authentic taste and friendly service."</p>
+          <p class="customer-name">- Maria G.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="testimonial p-4 bg-light rounded">
+          <p class="mb-3">"The Margherita pizza is divine! Fresh ingredients and perfect crust every time."</p>
+          <p class="customer-name">- John D.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="testimonial p-4 bg-light rounded">
+          <p class="mb-3">"Great atmosphere, amazing food, and excellent service. My family's favorite pizza place!"</p>
+          <p class="customer-name">- Sarah L.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta text-center py-5 mb-5 bg-light rounded">
+    <h2>Hungry Yet?</h2>
+    <p class="lead mb-4">Order now for pickup or delivery!</p>
+    <a routerLink="/menu" mat-raised-button color="primary" class="me-3">Order Online</a>
+    <p class="mt-3">Or call us: <strong>+1 234-567-8901</strong></p>
+  </section>
+</div>

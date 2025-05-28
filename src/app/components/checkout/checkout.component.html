@@ -1,0 +1,178 @@
+<div class="checkout-container">
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    <h2>Your cart is empty</h2>
+    <p>Please add some items to your cart before proceeding to checkout.</p>
+    <button mat-raised-button color="primary" routerLink="/menu">Browse Menu</button>
+  </div>
+
+  <div *ngIf="cartItems.length > 0">
+    <h1>Checkout</h1>
+    
+    <mat-stepper linear #stepper>
+      <!-- Order Summary Step -->
+      <mat-step label="Order Summary" completed="true" editable="true">
+        <div class="order-summary">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Your Order</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <table class="summary-table">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of cartItems">
+                    <td>{{ item.pizza.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.pizza.price | currency }}</td>
+                    <td>{{ item.pizza.price * item.quantity | currency }}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3" class="total-label">Total:</td>
+                    <td class="total-value">{{ cartTotal | currency }}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </mat-card-content>
+          </mat-card>
+          
+          <div class="actions">
+            <button mat-button routerLink="/cart">Back to Cart</button>
+            <button mat-raised-button color="primary" matStepperNext>Continue</button>
+          </div>
+        </div>
+      </mat-step>
+      
+      <!-- Customer Info Step -->
+      <mat-step [stepControl]="customerForm" label="Your Information">
+        <form [formGroup]="customerForm">
+          <div class="form-container">
+            <h2>Customer Information</h2>
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Full Name</mat-label>
+              <input matInput formControlName="name" placeholder="John Doe" required>
+              <mat-error *ngIf="customerForm.get('name')?.hasError('required')">Name is required</mat-error>
+              <mat-error *ngIf="customerForm.get('name')?.hasError('minlength')">Name must be at least 3 characters</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" placeholder="john.doe@example.com" required>
+              <mat-error *ngIf="customerForm.get('email')?.hasError('required')">Email is required</mat-error>
+              <mat-error *ngIf="customerForm.get('email')?.hasError('email')">Please enter a valid email address</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Phone Number</mat-label>
+              <input matInput formControlName="phone" placeholder="1234567890" required>
+              <mat-error *ngIf="customerForm.get('phone')?.hasError('required')">Phone number is required</mat-error>
+              <mat-error *ngIf="customerForm.get('phone')?.hasError('pattern')">Please enter a valid 10-digit phone number</mat-error>
+            </mat-form-field>
+            
+            <div class="actions">
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" matStepperNext [disabled]="customerForm.invalid">Continue</button>
+            </div>
+          </div>
+        </form>
+      </mat-step>
+      
+      <!-- Delivery Address Step -->
+      <mat-step [stepControl]="addressForm" label="Delivery Address">
+        <form [formGroup]="addressForm">
+          <div class="form-container">
+            <h2>Delivery Address</h2>
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Street Address</mat-label>
+              <input matInput formControlName="street" placeholder="123 Main St" required>
+              <mat-error *ngIf="addressForm.get('street')?.hasError('required')">Street address is required</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city" placeholder="New York" required>
+              <mat-error *ngIf="addressForm.get('city')?.hasError('required')">City is required</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>ZIP Code</mat-label>
+              <input matInput formControlName="zipCode" placeholder="12345" required>
+              <mat-error *ngIf="addressForm.get('zipCode')?.hasError('required')">ZIP code is required</mat-error>
+              <mat-error *ngIf="addressForm.get('zipCode')?.hasError('pattern')">Please enter a valid 5-digit ZIP code</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Notes (Optional)</mat-label>
+              <textarea matInput formControlName="notes" placeholder="Delivery instructions, apartment number, etc."></textarea>
+            </mat-form-field>
+            
+            <div class="actions">
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" matStepperNext [disabled]="addressForm.invalid">Continue</button>
+            </div>
+          </div>
+        </form>
+      </mat-step>
+      
+      <!-- Payment Step -->
+      <mat-step label="Review & Pay">
+        <div class="payment-container">
+          <h2>Review Your Order</h2>
+          
+          <mat-card class="review-card">
+            <mat-card-content>
+              <div class="review-section">
+                <h3>Order Summary</h3>
+                <p><strong>Items:</strong> {{ cartItems.length }}</p>
+                <p><strong>Total:</strong> {{ cartTotal | currency }}</p>
+              </div>
+              
+              <mat-divider></mat-divider>
+              
+              <div class="review-section" *ngIf="customerForm.valid">
+                <h3>Customer Information</h3>
+                <p><strong>Name:</strong> {{ customerForm.get('name')?.value }}</p>
+                <p><strong>Email:</strong> {{ customerForm.get('email')?.value }}</p>
+                <p><strong>Phone:</strong> {{ customerForm.get('phone')?.value }}</p>
+              </div>
+              
+              <mat-divider></mat-divider>
+              
+              <div class="review-section" *ngIf="addressForm.valid">
+                <h3>Delivery Address</h3>
+                <p>{{ addressForm.get('street')?.value }}</p>
+                <p>{{ addressForm.get('city')?.value }}, {{ addressForm.get('zipCode')?.value }}</p>
+                <p *ngIf="addressForm.get('notes')?.value"><strong>Notes:</strong> {{ addressForm.get('notes')?.value }}</p>
+              </div>
+              
+              <mat-divider></mat-divider>
+              
+              <div class="review-section">
+                <h3>Payment Method</h3>
+                <p>Cash on Delivery</p>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          
+          <div class="actions">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" (click)="submitOrder()" [disabled]="isSubmitting || customerForm.invalid || addressForm.invalid">
+              <mat-icon *ngIf="isSubmitting">hourglass_empty</mat-icon>
+              {{ isSubmitting ? 'Processing...' : 'Place Order' }}
+            </button>
+          </div>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </div>
+</div>

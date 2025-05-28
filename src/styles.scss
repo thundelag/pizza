@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: #f8f9fa;
+}
+
+.pizza-primary {
+    color: #d32f2f;
+}
+
+.pizza-secondary {
+    color: #388e3c;
+}
+
+.btn-pizza {
+    background-color: #d32f2f;
+    color: white;
+    &:hover {
+        background-color: #b71c1c;
+        color: white;
+    }
+}
+
+.card {
+    transition: transform 0.3s;
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}

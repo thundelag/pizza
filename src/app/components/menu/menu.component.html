@@ -1,0 +1,32 @@
+<div class="menu-container">
+  <div class="menu-header">
+    <h1 class="text-center mb-2">Our Pizza Menu</h1>
+    <p class="text-center text-muted mb-4">Select from our range of authentic Italian pizzas</p>
+    
+    <div class="filter-section text-center mb-4">
+      <mat-button-toggle-group [(ngModel)]="filterOption" (change)="onFilterChange()" aria-label="Filter pizzas">
+        <mat-button-toggle value="all">All Pizzas</mat-button-toggle>
+        <mat-button-toggle value="vegetarian">Vegetarian</mat-button-toggle>
+        <mat-button-toggle value="spicy">Spicy</mat-button-toggle>
+        <mat-button-toggle value="popular">Popular</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+  
+  <div *ngIf="isLoading" class="text-center py-5">
+    <mat-spinner diameter="50" class="mx-auto"></mat-spinner>
+    <p class="mt-3">Loading our delicious pizzas...</p>
+  </div>
+  
+  <div *ngIf="!isLoading" class="row">
+    <div *ngIf="filteredPizzas.length === 0" class="col-12 text-center my-5">
+      <mat-icon class="no-results-icon">search_off</mat-icon>
+      <h3>No pizzas found</h3>
+      <p>Try a different filter selection</p>
+    </div>
+    
+    <div *ngFor="let pizza of filteredPizzas" class="col-md-4 mb-4">
+      <app-pizza-item [pizza]="pizza"></app-pizza-item>
+    </div>
+  </div>
+</div>

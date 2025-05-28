@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" class="mb-4">
+  <a routerLink="/" class="navbar-brand text-white text-decoration-none d-flex align-items-center">
+    <mat-icon class="me-2">local_pizza</mat-icon>
+    <span>Pizzeria Deliziosa</span>
+  </a>
+  <span class="spacer"></span>
+  <nav>
+    <a mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a mat-button routerLink="/menu" routerLinkActive="active">Menu</a>
+    <a mat-button routerLink="/about" routerLinkActive="active">About Us</a>
+    <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
+    <a mat-icon-button routerLink="/cart" aria-label="Shopping cart">
+      <mat-icon matBadge="{{cartItemCount}}" [matBadgeHidden]="cartItemCount === 0">shopping_cart</mat-icon>
+    </a>
+  </nav>
+</mat-toolbar>
