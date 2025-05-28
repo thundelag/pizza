@@ -137,10 +137,9 @@ export class CartService {
           console.error('Error creating cart:', error);
           return of(null);
         })
-      ).subscribe(response => {
-        if (response && response.id) {
+      ).subscribe(response => {      if (response && response.id) {
           this.cartId = response.id;
-          localStorage.setItem('cartId', this.cartId);
+          localStorage.setItem('cartId', this.cartId || '');
         }
       });
     }
